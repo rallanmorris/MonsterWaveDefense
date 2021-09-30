@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundDistance = 0.4f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] float jumpHeight = 3f;
+    [SerializeField] GameObject aimCam;
 
     private float turnSmoothVelocity;
     private Vector2 moveInput;
@@ -67,5 +68,13 @@ public class PlayerController : MonoBehaviour
             jumpButtonDown = true;
         else
             jumpButtonDown = false;
+    }
+
+    public void Aim(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() > .1f)
+            aimCam.SetActive(true);
+        else
+            aimCam.SetActive(false);
     }
 }
