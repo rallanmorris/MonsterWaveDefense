@@ -14,18 +14,34 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundDistance = 0.4f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] float jumpHeight = 3f;
+    [SerializeField] GameObject regCam;
     [SerializeField] GameObject aimCam;
+    [SerializeField] GameObject aimBars;
+    [SerializeField] LayerMask aimColliderLayerMask = new LayerMask();
+    [SerializeField] Transform debugTransform;
+    [SerializeField] Transform bulletPF;
+    [SerializeField] Transform spawnBulletPosition;
 
     private float turnSmoothVelocity;
     private Vector2 moveInput;
     Vector3 velocity;
+    Vector3 raycastHitPoint = Vector3.zero;
     bool isGrounded;
     bool jumpButtonDown = false;
+    bool isFiring;
+    bool fireGun;
 
+    private void Awake()
+    {
+        jumpButtonDown = false;
+        isFiring = false;
+        fireGun = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        raycastHitPoint = Vector3.zero;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(isGrounded && velocity.y < 0)
@@ -55,6 +71,22 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray aimRay = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(aimRay, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        {
+            //debugTransform.position = raycastHit.point;
+            raycastHitPoint = raycastHit.point;
+        }
+
+        if (fireGun && !isFiring)
+        {
+            Vector3 aimDir = (raycastHitPoint - spawnBulletPosition.position).normalized;
+            Instantiate(bulletPF, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            isFiring = true;
+            fireGun = false;
+        }
     }
 
     public void Movement(InputAction.CallbackContext context)
@@ -73,8 +105,26 @@ public class PlayerController : MonoBehaviour
     public void Aim(InputAction.CallbackContext context)
     {
         if (context.ReadValue<float>() > .1f)
+        {
+            regCam.SetActive(false);
             aimCam.SetActive(true);
+            aimBars.SetActive(true);
+        }
         else
+        {
+            regCam.SetActive(true);
             aimCam.SetActive(false);
+            aimBars.SetActive(false);
+        }
+    }
+
+    public void Fire(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() > .1f && !isFiring)
+        {
+            fireGun = true;
+        }
+        else if(context.ReadValue<float>() < .01f && isFiring)
+            isFiring = false;
     }
 }
