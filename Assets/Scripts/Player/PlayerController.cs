@@ -24,18 +24,21 @@ public class PlayerController : MonoBehaviour
 
     private float turnSmoothVelocity;
     private Vector2 moveInput;
+    private Vector2 lookInput;
     Vector3 velocity;
     Vector3 raycastHitPoint = Vector3.zero;
     bool isGrounded;
     bool jumpButtonDown = false;
     bool isFiring;
     bool fireGun;
+    bool isAiming;
 
     private void Awake()
     {
         jumpButtonDown = false;
         isFiring = false;
         fireGun = false;
+        isAiming = false;
     }
 
     // Update is called once per frame
@@ -63,14 +66,6 @@ public class PlayerController : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-        
-        if(jumpButtonDown && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
 
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray aimRay = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -79,6 +74,34 @@ public class PlayerController : MonoBehaviour
             //debugTransform.position = raycastHit.point;
             raycastHitPoint = raycastHit.point;
         }
+
+        if (isAiming)
+        {
+            Vector3 worldAimTarget = raycastHitPoint;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+
+            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+
+            /*
+            float horizontalLook = lookInput.x;
+            float verticalLook = lookInput.y;
+            Vector3 directionLook = new Vector3(horizontalLook, 0f, verticalLook).normalized;
+
+            float targetAngle = Mathf.Atan2(directionLook.x, directionLook.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.01f);
+
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            **/
+        }
+        
+        if(jumpButtonDown && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
         if (fireGun && !isFiring)
         {
@@ -109,12 +132,14 @@ public class PlayerController : MonoBehaviour
             regCam.SetActive(false);
             aimCam.SetActive(true);
             aimBars.SetActive(true);
+            isAiming = true;
         }
         else
         {
             regCam.SetActive(true);
             aimCam.SetActive(false);
             aimBars.SetActive(false);
+            isAiming = false;
         }
     }
 
@@ -126,5 +151,10 @@ public class PlayerController : MonoBehaviour
         }
         else if(context.ReadValue<float>() < .01f && isFiring)
             isFiring = false;
+    }
+
+    public void Look(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
     }
 }
