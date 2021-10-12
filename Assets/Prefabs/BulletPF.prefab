@@ -154,4 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c371e53f04c69458b71796f8acd42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxHitEnemy: {fileID: 4000011382548710, guid: d32aa916f50cac94db11e6f19821a58f,
+    type: 3}
+  vfxHitOther: {fileID: 410886, guid: ce56f814fa0835a43aba1716e41c3173, type: 3}
   speed: 20
