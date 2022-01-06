@@ -120,24 +120,47 @@ public class PlayerController : MonoBehaviour
 
     public void AimTopDown(InputAction.CallbackContext context)
     {
+        Vector2 up = new Vector2(0, 1);
+        Vector2 down = new Vector2(0, -1);
+        Vector2 left = new Vector2(-1, 0);
+        Vector2 right = new Vector2(1, 0);
+
+        //Gets dpad input
         lookTopDownInput = context.ReadValue<Vector2>();
         Debug.Log(lookTopDownInput);
 
-        //Look at Reticle
+        //Get Reticle input
         Vector3 worldAimTarget = raycastHitPoint;
         worldAimTarget.y = transform.position.y;
-        Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-        Vector3 forward = transform.forward;
-        forward = aimDirection;
+        Vector3 aimDirection = transform.forward;
 
-        //Look to DPAD
-        Vector3 dPadTarget = Vector3.zero;
-        dPadTarget.x = lookTopDownInput.x;
-        dPadTarget.y = transform.position.y;
-        dPadTarget.z = lookTopDownInput.y;
-        Vector3 dPadDirection = (dPadTarget - transform.position).normalized;
+        //Set aim direction
+        if(lookTopDownInput.Equals(up))
+        {
+            aimDirection = (worldAimTarget - transform.position).normalized;
+        }
+        else if (lookTopDownInput.Equals(down))
+        {
+            aimDirection = (worldAimTarget - transform.position).normalized;
+            aimDirection = -aimDirection;
+        }
+        else if (lookTopDownInput.Equals(left))
+        {
+            aimDirection = Vector3.Cross((worldAimTarget - transform.position).normalized, transform.up).normalized;
+        }
+        else if (lookTopDownInput.Equals(right))
+        {
+            aimDirection = Vector3.Cross((worldAimTarget - transform.position).normalized, transform.up).normalized;
+            aimDirection = -aimDirection;
+        }
+        else
+        {
+            aimDirection = transform.forward;
+        }
+
+        //Set forward to aim direction
+        transform.forward = aimDirection;
         
-        transform.forward = Vector3.Lerp(transform.forward, dPadDirection, Time.deltaTime * 20f);
     }
 
     public void Jump(InputAction.CallbackContext context)
