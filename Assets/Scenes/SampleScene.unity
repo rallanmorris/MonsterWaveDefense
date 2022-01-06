@@ -2589,7 +2589,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718996834}
-  m_LocalRotation: {x: -0.020819794, y: 0.000000017202652, z: 3.582332e-10, w: 0.9997833}
+  m_LocalRotation: {x: -0.020819774, y: -0.000000017202654, z: -3.582329e-10, w: 0.9997833}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3017,6 +3017,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4853700368501118, guid: 3f0acace52765f74b84bdab0b6ee0b09,
     type: 3}
   m_PrefabInstance: {fileID: 823403391}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &834437617 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4260086230310790, guid: f1851660e8e43df4480fc7deebe4e4b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1012591259}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &853858422
 GameObject:
@@ -3490,8 +3496,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.05712312, y: 0.0000000173209, z: 9.900197e-10, w: 0.9983672}
-  m_LocalPosition: {x: -0.000000008227762, y: 6.8964252, z: -7.277244}
+  m_LocalRotation: {x: -0.05712312, y: -0.000000017320904, z: -9.9002e-10, w: 0.9983672}
+  m_LocalPosition: {x: 0.0000000082277625, y: 6.8964252, z: -7.277244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3607,7 +3613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4260086230310790, guid: f1851660e8e43df4480fc7deebe4e4b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.23739666
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 4260086230310790, guid: f1851660e8e43df4480fc7deebe4e4b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3676,6 +3682,17 @@ PrefabInstance:
       propertyPath: attackRange
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8923419671703998540, guid: f1851660e8e43df4480fc7deebe4e4b5,
+        type: 3}
+      propertyPath: floatingPoints
+      value: 
+      objectReference: {fileID: 1350395249993313401, guid: b3d14eb9915ac27448a014ab9e7f6c55,
+        type: 3}
+    - target: {fileID: 8923419671703998540, guid: f1851660e8e43df4480fc7deebe4e4b5,
+        type: 3}
+      propertyPath: floatingPointParent
+      value: 
+      objectReference: {fileID: 1259504892}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1851660e8e43df4480fc7deebe4e4b5, type: 3}
 --- !u!1001 &1077383194
@@ -3807,7 +3824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089872489}
-  m_LocalRotation: {x: -0.057123125, y: 0.000000017311967, z: 9.905311e-10, w: 0.99836713}
+  m_LocalRotation: {x: -0.057123125, y: -0.000000017311969, z: -9.905312e-10, w: 0.99836713}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4109,6 +4126,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1208148665}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1259504892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259504894}
+  m_Layer: 0
+  m_Name: FloatingPtParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259504894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259504892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.092603356, y: 1.2789998, z: -0.049999237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 834437617}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1261814172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4421037016098364, guid: 04e51660ed2ae664db6107c1f38fb74f,
@@ -6399,6 +6446,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3e00ae28-2dd3-4962-bcbf-002718c78165
     m_ActionName: Gamepad/Fire[/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1882543532}
+        m_MethodName: AimTopDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6be582fe-80e9-4a8d-a5d9-e4ee532d4400
+    m_ActionName: Gamepad/Aim Top Down[/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gamepad

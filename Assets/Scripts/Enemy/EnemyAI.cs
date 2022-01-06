@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] GameObject floatingPoints;
+    [SerializeField] GameObject floatingPointParent;
     [SerializeField] GameObject player;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform playerTransform;
@@ -105,7 +107,9 @@ public class EnemyAI : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-
+        var dmg = Instantiate(floatingPoints, transform.position, Quaternion.identity);
+        dmg.transform.parent = floatingPointParent.transform;
+        Destroy(dmg.gameObject, 0.5f);
         if (health <= 0)
             Invoke(nameof(DestroyEnemy), 0.5f);
     }

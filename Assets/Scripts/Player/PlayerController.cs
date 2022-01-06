@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float turnSmoothVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
+    private Vector2 lookTopDownInput;
     Vector3 velocity;
     Vector3 raycastHitPoint = Vector3.zero;
     bool isGrounded;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
@@ -115,6 +116,28 @@ public class PlayerController : MonoBehaviour
     public void Movement(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void AimTopDown(InputAction.CallbackContext context)
+    {
+        lookTopDownInput = context.ReadValue<Vector2>();
+        Debug.Log(lookTopDownInput);
+
+        //Look at Reticle
+        Vector3 worldAimTarget = raycastHitPoint;
+        worldAimTarget.y = transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+        Vector3 forward = transform.forward;
+        forward = aimDirection;
+
+        //Look to DPAD
+        Vector3 dPadTarget = Vector3.zero;
+        dPadTarget.x = lookTopDownInput.x;
+        dPadTarget.y = transform.position.y;
+        dPadTarget.z = lookTopDownInput.y;
+        Vector3 dPadDirection = (dPadTarget - transform.position).normalized;
+        
+        transform.forward = Vector3.Lerp(transform.forward, dPadDirection, Time.deltaTime * 20f);
     }
 
     public void Jump(InputAction.CallbackContext context)
