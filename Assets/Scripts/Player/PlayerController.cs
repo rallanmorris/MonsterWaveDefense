@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookTopDownInput;
     Vector3 velocity;
     Vector3 raycastHitPoint = Vector3.zero;
+    Vector3 fRayHitPoint = Vector3.zero;
     bool isGrounded;
     bool jumpButtonDown = false;
     bool isFiring;
@@ -68,9 +69,15 @@ public class PlayerController : MonoBehaviour
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
 
+        Ray forwardRay = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(forwardRay, out RaycastHit fRaycastHit, 999f, aimColliderLayerMask))
+        {
+            fRayHitPoint = fRaycastHit.point;
+        }
+
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Ray aimRay = Camera.main.ScreenPointToRay(screenCenterPoint);
-        if (Physics.Raycast(aimRay, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        Ray reticleRay = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(reticleRay, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
         {
             //debugTransform.position = raycastHit.point;
             raycastHitPoint = raycastHit.point;
@@ -84,18 +91,26 @@ public class PlayerController : MonoBehaviour
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
 
-            /*
-            float horizontalLook = lookInput.x;
-            float verticalLook = lookInput.y;
-            Vector3 directionLook = new Vector3(horizontalLook, 0f, verticalLook).normalized;
-
-            float targetAngle = Mathf.Atan2(directionLook.x, directionLook.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.01f);
-
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            **/
+            if (fireGun && !isFiring)
+            {
+                Vector3 aimDir = (raycastHitPoint - spawnBulletPosition.position).normalized;
+                Instantiate(bulletPF, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                isFiring = true;
+                fireGun = false;
+            }
+        }
+        else
+        {
+            if (fireGun && !isFiring)
+            {
+                Vector3 aimDir = (fRayHitPoint - spawnBulletPosition.position);
+                Instantiate(bulletPF, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                isFiring = true;
+                fireGun = false;
+            }
         }
         
+
         if(jumpButtonDown && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -104,13 +119,6 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        if (fireGun && !isFiring)
-        {
-            Vector3 aimDir = (raycastHitPoint - spawnBulletPosition.position).normalized;
-            Instantiate(bulletPF, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            isFiring = true;
-            fireGun = false;
-        }
     }
 
     public void Movement(InputAction.CallbackContext context)
@@ -127,7 +135,6 @@ public class PlayerController : MonoBehaviour
 
         //Gets dpad input
         lookTopDownInput = context.ReadValue<Vector2>();
-        Debug.Log(lookTopDownInput);
 
         //Get Reticle input
         Vector3 worldAimTarget = raycastHitPoint;
