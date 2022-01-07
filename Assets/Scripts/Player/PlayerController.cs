@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
                 isFiring = true;
                 fireGun = false;
             }
+
         }
         else
         {

@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 22689033}
   - component: {fileID: 22689032}
   - component: {fileID: 22689031}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,7 +975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 270331802}
   - component: {fileID: 270331801}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 365933083}
   - component: {fileID: 365933082}
   - component: {fileID: 365933081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2589,7 +2589,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718996834}
-  m_LocalRotation: {x: -0.020819774, y: -0.000000017202654, z: -3.582329e-10, w: 0.9997833}
+  m_LocalRotation: {x: -0.020819794, y: 0.000000017202652, z: 3.582332e-10, w: 0.9997833}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2841,7 +2841,7 @@ GameObject:
   - component: {fileID: 786622633}
   - component: {fileID: 786622632}
   - component: {fileID: 786622631}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3523,7 +3523,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 0.1
+    m_Time: 0.15
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -5359,7 +5359,7 @@ GameObject:
   - component: {fileID: 1736532990}
   - component: {fileID: 1736532989}
   - component: {fileID: 1736532994}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AimCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5554,7 +5554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1765424548}
   - component: {fileID: 1765424547}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MiddleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5731,7 +5731,7 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
   m_Transitions:
     m_BlendHint: 0
-    m_InheritPosition: 0
+    m_InheritPosition: 1
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
@@ -6952,7 +6952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089898957}
   - component: {fileID: 2089898956}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BottomRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
