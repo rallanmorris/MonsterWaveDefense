@@ -59,6 +59,8 @@ public class EnemyAI : MonoBehaviour
         if(!alreadyAttacked)
         {
             //Todo attack code
+            //if enemy type melee 
+            //enemytype ranged
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
